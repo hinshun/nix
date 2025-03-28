@@ -131,6 +131,17 @@ foreach header : [
   generated_headers += gen_header.process(header)
 endforeach
 
+# Adds parser.y as an explicit dependency so that its transitive includes are
+# discoverable at parse-time of the build.ninja file.
+parser_y_header = custom_target(
+ 'parser_y_header',
+ input : 'parser.y',
+ output : 'parser.y.gen.hh',
+ command : ['cp', '@INPUT@', '@OUTPUT@'],
+ build_by_default : false
+)
+generated_headers += parser_y_header
+
 sources = files(
   'attr-path.cc',
   'attr-set.cc',
