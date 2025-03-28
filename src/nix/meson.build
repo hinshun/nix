@@ -177,7 +177,11 @@ if host_machine.system() != 'windows'
   ]
 endif
 
-include_dirs = [include_directories('.')]
+include_dirs = [
+  include_directories('.'),
+  include_directories('../nix-env'),
+  include_directories('../nix-store'),
+]
 
 this_exe = executable(
   meson.project_name(),
